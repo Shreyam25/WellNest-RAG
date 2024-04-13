@@ -393,9 +393,7 @@ def generate_response(query,matching_docs):
     [/INST]
 '''
     api = Client(api_token=st.secrets["REPLICATE_API_TOKEN"])
-<<<<<<< HEAD
     # api = Client(api_token="r8_1weJ3tgitKQyV71KXxaDqzGLhaCWMj30wgMZU")
-=======
 
 
 
