@@ -3,7 +3,6 @@ replicate
 transformers
 sentence_transformers
 sentence-transformers
-
-chromadb 
+chromadb== 0.3.29 
 unstructured
 streamlit
