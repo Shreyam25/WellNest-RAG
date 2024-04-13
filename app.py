@@ -396,7 +396,6 @@ def generate_response(query,matching_docs):
 <<<<<<< HEAD
     # api = Client(api_token="r8_1weJ3tgitKQyV71KXxaDqzGLhaCWMj30wgMZU")
 =======
->>>>>>> 588ff33f3ee76d486944afa32d2e2f49e0519d2f
 
 
 
