@@ -2,6 +2,8 @@ langchain
 replicate
 transformers
 sentence_transformers
+sentence-transformers
+
 chromadb 
 unstructured
 streamlit
