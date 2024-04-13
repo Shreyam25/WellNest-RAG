@@ -1,0 +1,7 @@
+langchain
+replicate
+transformers
+sentence_transformers
+chromadb 
+unstructured
+streamlit
