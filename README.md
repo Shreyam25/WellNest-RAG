@@ -15,7 +15,7 @@ WellNest is an AI-powered chatbot designed to provide support, guidance, and inf
 
 ## Getting Started
 
-To get started with WellNest, simply visit the [website link]() and start chatting with the chatbot. You can ask questions about mental health conditions, treatments, coping strategies, and more.
+To get started with WellNest, simply visit the [https://wellnest-rag-chatbot.streamlit.app/]() and start chatting with the chatbot. You can ask questions about mental health conditions, treatments, coping strategies, and more.
 
 ## Technologies Used
 
