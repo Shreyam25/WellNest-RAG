@@ -391,6 +391,9 @@ def generate_response(query,matching_docs):
     [/INST]
 '''
     api = Client(api_token=st.secrets["REPLICATE_API_TOKEN"])
+
+
+
     output = api.run(
         "meta/llama-2-7b-chat",
         input={

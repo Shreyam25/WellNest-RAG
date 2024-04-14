@@ -2,6 +2,7 @@ langchain
 replicate
 transformers
 sentence_transformers
-chromadb 
+sentence-transformers
+chromadb== 0.3.29 
 unstructured
 streamlit
