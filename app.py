@@ -386,7 +386,7 @@ def generate_response(query,matching_docs):
     You are WellNest, here to support you with mental health concerns.
     Given a query, provide concise, meaningful responses.
     Recommend online resources if needed.
-    Keep responses to 3-4 lines.
+    Keep responses to 3 to 4 lines.
     Recent query: {query}
     Context: {matching_docs}
     Your advice:
@@ -395,7 +395,7 @@ def generate_response(query,matching_docs):
     '''
     api = Client(api_token=st.secrets["REPLICATE_API_TOKEN"])
 
-
+#<<SYS>>\n{system_prompt}\n<</SYS>>
 
     output = api.run(
         "meta/llama-2-7b-chat",
@@ -407,7 +407,7 @@ def generate_response(query,matching_docs):
             "system_prompt": system_prompt,
             "length_penalty": 1,
             "max_new_tokens":400,
-            "prompt_template": "<s>[INST] <<SYS>>\n{system_prompt}\n<</SYS>>\n\n{prompt} [/INST]",
+            "prompt_template": "<s>[INST] \n\n{prompt} [/INST]",
             "presence_penalty": 0
         }
     )
