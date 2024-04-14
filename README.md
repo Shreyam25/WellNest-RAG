@@ -33,7 +33,7 @@ To run WellNest locally, follow these steps:
 1. Clone the repository:
 
 ```
-git clone [repository_link]
+git clone https://github.com/Shreyam25/WellNest-RAG.git
 ```
 
 2. Install the required dependencies:
