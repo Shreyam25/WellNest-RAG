@@ -57,7 +57,7 @@ st.markdown("""
 # Set the title text with custom CSS styling for color
 st.markdown(
     """
-    <h1 style="color:white;font-family: cursive;">WellNest</h1>
+    <h1 style="color:white;font-family: Georgia, serif;font-size:60px;font-weight:bold">Well<span style="color:#ffcc66;font-style:italic;">Nest</span></h1>
     """,
     unsafe_allow_html=True
 )
@@ -71,7 +71,7 @@ st.markdown(
       opacity: 1; /* Set opacity to make the text fully visible */
      
     }
-    .stTextInput label { /* Change input label color */
+    .stTextArea label { /* Change input label color */
       color: white !important; /* Set the desired color */
       font-family: cursive;
     }
@@ -94,12 +94,12 @@ def typewriter(text: str, speed: int):
     container = st.empty()
     for index in range(len(tokens) + 1):
         curr_full_text = " ".join(tokens[:index])
-        container.markdown(f"<span style='font-size:{font_size}px; color: #ffe6cc;'>{curr_full_text}</span>", unsafe_allow_html=True)
+        container.markdown(f"<span style='font-size:{font_size}px;font-family:cursive; color: #ffe6cc;'>{curr_full_text}</span>", unsafe_allow_html=True)
 
         time.sleep(50 / speed)
 
 # Main content
-text_content = "Hello !! I'm WellNest, your caring companion for wellness and hope... Developed by the Llama Chat Model from Meta, I'm here to provide real-time mental health insights. Feel free to ask me anything—You have me!"
+text_content = "Hello !! I am WellNest, your compassionate guide to mental wellbeing and growth! Powered by the Llama Chat Model from Meta, I'm here to offer real-time support and insights on issues like anxiety, sleep disorders, depression, personality disorders, and more.\n Feel free to reach out with any questions or concerns you may have—I'm here to help you navigate your journey towards a healthier and happier life."
 speed = 100
 
 # Check if typewriter animation has already been displayed
@@ -495,7 +495,7 @@ st.markdown(button_style, unsafe_allow_html=True)
 footer_container = st.container()
 with footer_container:
     
-    input_text = st.text_input("Share your Thoughts:", key=input_key, placeholder="Type here...", on_change=None)
+    input_text = st.text_area("Share your Thoughts:", key=input_key, placeholder="Type here...", on_change=None)
 
 if st.button('Ask'):
     st.session_state.conversation_memory.append(f"You: {input_text}")
