@@ -381,11 +381,9 @@ def process_documents(query,chunk_size=1000, chunk_overlap=20):
 def generate_response(query,matching_docs):
     PROMPT_TEMPLATE = f'''[INST]
     You are WellNest. Your goal is to help me in solving mental illness related doubts.
-    You will be given a query and a series of answers solving that query. 
-    You will respond  to me tailoring better friendly response .
-    Make sure you do not include ulrelated things in your answer.
+    You will be given a query and a series of answers solving that query. You have to learn that text and have to provide concise,meaningful response to me in less words.
     You can suggest them online sites or resouces to help them to solve their problem if they want you to suggest them resources
-    Provide response with 3 4 lines
+    Provide response with 3 4 lines not more than that.
     recent query :{query}
     context: {matching_docs}
     advice by YOU :
@@ -393,13 +391,6 @@ def generate_response(query,matching_docs):
     [/INST]
 '''
     api = Client(api_token=st.secrets["REPLICATE_API_TOKEN"])
-<<<<<<< HEAD
-    # api = Client(api_token="r8_1weJ3tgitKQyV71KXxaDqzGLhaCWMj30wgMZU")
-=======
->>>>>>> 588ff33f3ee76d486944afa32d2e2f49e0519d2f
-
-
-
     output = api.run(
         "meta/llama-2-7b-chat",
         input={
@@ -429,24 +420,32 @@ def generate_response(query,matching_docs):
 if 'conversation_memory' not in st.session_state:
     st.session_state.conversation_memory = []
 
-# Function to display conversation
 def display_conversation():
+    # Custom CSS to inject
     text_area_style = """
     <style>
-    textarea.stTextArea{
-        background-color: skyblue !important;
-        color: black !important;
+    /* Targeting the text areas with custom attributes */
+    .st-ae st-af st-ag st-ah st-c2 st-c3 st-c4 st-c5 st-am st-an st-ao st-ap st-aq st-ar st-as st-at st-au st-av st-aw st-b3 st-b4 st-b5 st-b6 st-b7 st-b8 st-b9{
+        background-color:  #ff9999;
+        border-radius: 10px;
+        padding: 10px;
+        width: auto !important;
+        margin: auto !important;
     }
-    textarea.stTextArea:nth-child(odd) > div > div > textarea {
-        color: pink !important;
+    .class="st-ae st-af st-ag st-ah st-c2 st-c3 st-c4 st-c5 st-am st-an st-ao st-ap st-aq st-ar st-as st-at st-au st-av st-aw st-b3 st-b4 st-b5 st-b6 st-b7 st-b8 st-b9" {
+        background-color:  #99ccff;
+        border-radius: 10px;
+        padding: 10px;
+        width: auto !important;
+        margin: auto !important;
     }
     </style>
     """ 
 
-        # Render the CSS style
+    # Render the CSS style
     st.markdown(text_area_style, unsafe_allow_html=True)
 
-# Display the text area with the specified text
+    # Display the text area with the specified text
     for i, text in enumerate(st.session_state.conversation_memory):
         # User messages on the right
         if text.startswith("You: "):
@@ -455,17 +454,20 @@ def display_conversation():
                 col1, col2 = st.columns([1, 5])
                 with col2:
                     num_lines = text.count('\n') + 1
-                    st.text_area("", text[5:], key=f"text_{i}", height=num_lines)
+                    # Set custom attribute data-user to True
+                    st.text_area("", text[5:], key=f"text_{i}")
         # Bot messages on the left
         elif text.startswith("Bot: "):
             with st.container():
                 col1, col2 = st.columns([5, 1])
                 with col1:
                     num_lines = text.count('\n') + 1
-                    st.text_area("", text[5:], key=f"text_{i}", height=num_lines*10)
+                    # Set custom attribute data-bot to True
+                    st.text_area("", text[5:], key=f"text_{i}")
                 st.write('')
 
-# Display the chat
+
+
 display_conversation()
 
 # Footer text input for user query
