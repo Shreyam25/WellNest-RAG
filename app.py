@@ -23,7 +23,7 @@ st.set_page_config(page_title="WellNest",
 page_elements = """
 <style>
 [data-testid="stAppViewContainer"] {
-  background-image: url("https://i.pinimg.com/originals/76/89/a9/7689a99ddfde89cedb0d098a57a5ac02.gif");
+  background-image: url("https://i.pinimg.com/originals/8a/2d/fb/8a2dfb05b95555dba293ad3d3a3b03df.gif");
   background-size: cover;
   color: white;
 }
@@ -69,6 +69,7 @@ st.markdown(
     ::placeholder { /* Change placeholder color */
       color: white; /* Set the desired color */
       opacity: 1; /* Set opacity to make the text fully visible */
+     
     }
     .stTextInput label { /* Change input label color */
       color: white !important; /* Set the desired color */
@@ -85,6 +86,7 @@ st.markdown(
 
 import streamlit as st
 import time
+font_size=20
 
 # Function to simulate a typing animation
 def typewriter(text: str, speed: int):
@@ -92,7 +94,8 @@ def typewriter(text: str, speed: int):
     container = st.empty()
     for index in range(len(tokens) + 1):
         curr_full_text = " ".join(tokens[:index])
-        container.markdown(curr_full_text)
+        container.markdown(f"<span style='font-size:{font_size}px; color: #ffe6cc;'>{curr_full_text}</span>", unsafe_allow_html=True)
+
         time.sleep(50 / speed)
 
 # Main content
@@ -105,7 +108,7 @@ if 'typewriter_ran' not in st.session_state:
     typewriter(text=text_content, speed=speed)
 else:
     # Display text directly without typing animation
-    st.markdown(text_content)
+    st.markdown(f"<span style='font-size:{font_size}px;color: #ffe6cc;'>{text_content}</span>", unsafe_allow_html=True)
 
 
 
@@ -380,16 +383,16 @@ def process_documents(query,chunk_size=1000, chunk_overlap=20):
 
 def generate_response(query,matching_docs):
     PROMPT_TEMPLATE = f'''[INST]
-    You are WellNest. Your goal is to help me in solving mental illness related doubts.
-    You will be given a query and a series of answers solving that query. You have to learn that text and have to provide concise,meaningful response to me in less words.
-    You can suggest them online sites or resouces to help them to solve their problem if they want you to suggest them resources
-    Provide response with 3 4 lines not more than that.
-    recent query :{query}
-    context: {matching_docs}
-    advice by YOU :
+    You are WellNest, here to support you with mental health concerns.
+    Given a query, provide concise, meaningful responses.
+    Recommend online resources if needed.
+    Keep responses to 3-4 lines.
+    Recent query: {query}
+    Context: {matching_docs}
+    Your advice:
 
     [/INST]
-'''
+    '''
     api = Client(api_token=st.secrets["REPLICATE_API_TOKEN"])
 
 
@@ -427,23 +430,31 @@ def display_conversation():
     # Custom CSS to inject
     text_area_style = """
     <style>
-    /* Targeting the text areas with custom attributes */
-    .st-ae st-af st-ag st-ah st-c2 st-c3 st-c4 st-c5 st-am st-an st-ao st-ap st-aq st-ar st-as st-at st-au st-av st-aw st-b3 st-b4 st-b5 st-b6 st-b7 st-b8 st-b9{
-        background-color:  #ff9999;
+    /* Targeting the divs with custom attributes */
+    .bot {
+        background-color: #E8F2E6;
         border-radius: 10px;
         padding: 10px;
+        margin: 10px auto; /* Adjust the margin here */
         width: auto !important;
         margin: auto !important;
+        clear: both;
+        color:black !important;
+
     }
-    .class="st-ae st-af st-ag st-ah st-c2 st-c3 st-c4 st-c5 st-am st-an st-ao st-ap st-aq st-ar st-as st-at st-au st-av st-aw st-b3 st-b4 st-b5 st-b6 st-b7 st-b8 st-b9" {
-        background-color:  #99ccff;
+    .me {
+        background-color:  #F3DED9 ;
         border-radius: 10px;
         padding: 10px;
+        margin:10px auto;
         width: auto !important;
         margin: auto !important;
-    }
+        clear: both;
+        color:black !important;
+
+   }
     </style>
-    """ 
+    """
 
     # Render the CSS style
     st.markdown(text_area_style, unsafe_allow_html=True)
@@ -456,20 +467,15 @@ def display_conversation():
                 st.write('')
                 col1, col2 = st.columns([1, 5])
                 with col2:
-                    num_lines = text.count('\n') + 1
-                    # Set custom attribute data-user to True
-                    st.text_area("", text[5:], key=f"text_{i}")
+                    st.markdown(f'<div class="me">{text[5:]}</div><br>', unsafe_allow_html=True)
         # Bot messages on the left
         elif text.startswith("Bot: "):
             with st.container():
                 col1, col2 = st.columns([5, 1])
                 with col1:
-                    num_lines = text.count('\n') + 1
                     # Set custom attribute data-bot to True
-                    st.text_area("", text[5:], key=f"text_{i}")
+                    st.markdown(f'<div class="bot">{text[5:]}</div><br>', unsafe_allow_html=True)
                 st.write('')
-
-
 
 display_conversation()
 
